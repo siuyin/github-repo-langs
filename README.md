@@ -7,6 +7,6 @@ an organisation.
 
 1. edit yourSecret.env accordingly
 
-1. . yourSecret.env
+1. . yourSecret.env <-- it reads "dot yourSecret.env"
 
 go run cmd/repolangs/main.go > yourReport.csv
