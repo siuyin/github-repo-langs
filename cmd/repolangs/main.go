@@ -33,7 +33,14 @@ func getClient() *github.Client {
 }
 
 func getRepos(client *github.Client) []*github.Repository {
-	repos, _, err := client.Repositories.ListByOrg(context.Background(), "xendit", nil)
+	maxNum, err := dflt.EnvInt("MAXNUM", 1000)
+	if err != nil {
+		log.Fatal(err)
+	}
+	opt := &github.RepositoryListByOrgOptions{
+		ListOptions: github.ListOptions{PerPage: maxNum},
+	}
+	repos, _, err := client.Repositories.ListByOrg(context.Background(), "xendit", opt)
 	if err != nil {
 		log.Fatalf("could not get repos: %v", err)
 	}
